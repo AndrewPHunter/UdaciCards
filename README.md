@@ -1,7 +1,8 @@
 # UdaciCards
 [React Nanodegree Project](https://www.udacity.com/course/react-nanodegree--nd019)
 
-This project is scaffolded from [create-react-native-app](https://github.com/react-community/create-react-native-app) and built to the specs provided by the Udacity project guide.
+This project is scaffolded from [create-react-native-app](https://github.com/react-community/create-react-native-app) and built to the specs provided by the Udacity project guide. The project has been
+tested on iOs 11.1.1 and Android simulator using [GenyMotion](https://www.genymotion.com/fun-zone/) targeting Google Nexis 5 API Level 21.
 
 ### Directory Structure
 <p>
