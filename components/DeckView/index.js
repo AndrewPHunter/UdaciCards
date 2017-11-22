@@ -54,7 +54,7 @@ class DeckView extends Component{
     const {deck} = this.props;
 
     if(deck.count > 0){
-      this.props.startQuiz(deck.title);
+      this.props.startQuiz(deck);
       return;
     }
 
@@ -118,7 +118,7 @@ const mapDispatchToProps = (dispatch, {navigation})=>{
   return {
     loadCards: (id)=>dispatch(loadCards(id)),
     addCard: (id)=>navigation.navigate('AddCard', {id}),
-    startQuiz: (title)=>navigation.navigate('QuizView', {title})
+    startQuiz: (deck)=>navigation.navigate('QuizView', {deck})
   }
 };
 

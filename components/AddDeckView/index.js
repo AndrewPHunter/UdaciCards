@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {KeyboardAvoidingView, Keyboard, Alert} from 'react-native';
+import {NavigationActions} from 'react-navigation';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import glamorous from 'glamorous-native';
@@ -7,8 +8,6 @@ import RoundedButton from '../Button/RoundedButton';
 import TextInput from '../TextInput';
 
 import {
-  grey,
-  greyLight,
   blue,
   white,
   lightBlue
@@ -19,8 +18,7 @@ import {createDeck} from '../../utils/helpers';
 
 const {
   View,
-  Text,
-
+  Text
 } = glamorous;
 
 
@@ -28,15 +26,24 @@ export class AddDeckView extends Component{
 
   static propTypes = {
     addDeck: PropTypes.func.isRequired,
-    goBack: PropTypes.func.isRequired
+    goToDeck: PropTypes.func.isRequired
   };
 
   state =  {
     title: null
   };
 
+  navigationReset = ({id, title})=>
+    NavigationActions.reset({
+      index: 1,
+      actions:[
+        NavigationActions.navigate({routeName: 'Home'}),
+        NavigationActions.navigate({routeName: 'Deck', params:{id, title}})
+      ]
+    });
+
   onSubmit = ()=>{
-    const {addDeck, goBack} = this.props;
+    const {addDeck, goToDeck} = this.props;
     const {title} = this.state;
 
     if(title === null || title.length < 3){
@@ -44,10 +51,11 @@ export class AddDeckView extends Component{
       return;
     }
 
-    addDeck(createDeck(title));
+    const deck = createDeck(title);
+    addDeck(deck);
     this.setState({title: null});
     Keyboard.dismiss();
-    goBack();
+    goToDeck(this.navigationReset(deck));
 
   };
 
@@ -94,7 +102,7 @@ export class AddDeckView extends Component{
 
 mapDispatchToProps = (dispatch, {navigation})=>({
   addDeck: (deck)=>dispatch(addDeck(deck)),
-  goBack: ()=> navigation.goBack()
+  goToDeck: (resetAction)=> navigation.dispatch(resetAction)
 });
 
 export default connect(null, mapDispatchToProps)(AddDeckView);

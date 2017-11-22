@@ -13,14 +13,14 @@ const {View} = glamorous;
 class Quiz extends Component{
 
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    deck: PropTypes.object.isRequired,
     cards: PropTypes.array.isRequired,
     showResults: PropTypes.func.isRequired,
     resetNotification: PropTypes.func.isRequired
   };
 
   static navigationOptions = ({navigation})=>({
-    title: `${navigation.state.params.title} Quiz`,
+    title: `${navigation.state.params.deck.title} Quiz`,
     headerTitleStyle:{
       alignSelf: 'center'
     }
@@ -35,7 +35,7 @@ class Quiz extends Component{
 
     const {currentQuestion, numberCorrect} = this.state;
     const totalCards = this.props.cards.length;
-    const title = this.props.title;
+    const deck = this.props.deck;
 
 
     if(currentQuestion > totalCards){
@@ -43,7 +43,7 @@ class Quiz extends Component{
       const score = Math.round((numberCorrect / totalCards) * 100);
 
       this.props.resetNotification();
-      this.props.showResults(title, score);
+      this.props.showResults(deck, score);
     }
   };
 
@@ -93,11 +93,11 @@ class Quiz extends Component{
 
 const mapStateToProps = (state, {navigation})=>({
   cards: state.cards,
-  title: navigation.state.params.title
+  deck: navigation.state.params.deck
 });
 
 const mapDispatchToProps = (dispatch, {navigation})=>({
-  showResults: (title, percent)=>navigation.navigate('QuizResultsView', {title, percent}),
+  showResults: (deck, percent)=>navigation.navigate('QuizResultsView', {deck, percent}),
   resetNotification: ()=>localStore.clearNotifications().then(localStore.setNotification)
 });
 
