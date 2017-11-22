@@ -28,7 +28,7 @@ import QuizResultsView from '../QuizResultsView';
 ### Getting Started
 
 <p>
-There are known issues with regard to using create-react-native-app and npm hence it is strongly suggested to use [yarn](https://yarnpkg.com/en/) for setting up the project.
+There are known issues with regard to using create-react-native-app and npm hence it is strongly suggested to use <a href="https://yarnpkg.com/en/" target="_blank">yarn</a>.
 
 * clone the repo
 * setup projects and dependencies
